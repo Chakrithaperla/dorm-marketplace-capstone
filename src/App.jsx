@@ -22,7 +22,7 @@ function App() {
     setItems((prev) =>
       prev.map((item) => {
         if (item.id === id && item.status === "available") {
-          // Start expiry timer (Ghost Buyer)
+          // Ghost buyer expiry (10 sec)
           setTimeout(() => {
             setItems((current) =>
               current.map((i) =>
@@ -53,31 +53,47 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Dorm Marketplace</h1>
+    <div style={{ padding: "20px", fontFamily: "Arial" }}>
+      <h1>Dorm Marketplace App 🚀</h1>
 
       <input
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Enter item name"
+        style={{ padding: "8px", marginRight: "10px" }}
       />
       <button onClick={addItem}>Add Item</button>
 
       <hr />
 
+      {items.length === 0 && <p>No items listed yet</p>}
+
       {items.map((item) => (
-        <div key={item.id} style={{ marginBottom: "10px" }}>
+        <div
+          key={item.id}
+          style={{
+            marginBottom: "10px",
+            padding: "10px",
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+          }}
+        >
           <b>{item.name}</b> — {item.status}
 
-          {item.status === "available" && (
-            <button onClick={() => claimItem(item.id)}>Claim</button>
-          )}
+          <div style={{ marginTop: "5px" }}>
+            {item.status === "available" && (
+              <button onClick={() => claimItem(item.id)}>Claim</button>
+            )}
 
-          {item.status !== "sold" && (
-            <button onClick={() => markSold(item.id)}>
-              Mark as Sold
-            </button>
-          )}
+            {item.status !== "sold" && (
+              <button
+                onClick={() => markSold(item.id)}
+                style={{ marginLeft: "10px" }}
+              >
+                Mark as Sold
+              </button>
+            )}
+          </div>
         </div>
       ))}
     </div>
