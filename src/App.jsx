@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-// Updated UI for PR submission
-
 function App() {
   const [items, setItems] = useState([]);
   const [input, setInput] = useState("");
